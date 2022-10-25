@@ -30,10 +30,6 @@ def main():
     quotes_3 = 0
     quotes_4 = 0
     quotes_5 = 0  # Задаем переменные для счета, а также инициализируем нужные ссылки
-    new_quotes = []
-    new_names = []
-    new_texts = []
-    new_authors = []
     while number_elem < 50:
         response = requests.get(url, headers)  # Собственно записываем в переменную нтмл текст.после используем его
         response.encoding = "utf-8"
@@ -52,56 +48,51 @@ def main():
             sec_soup = BeautifulSoup(sec_response.text, 'lxml')
             quotes = sec_soup.find_all(class_="lenta-card__mymark")  # ищем все что нам надо и записываем это
             names = sec_soup.find_all(class_="lenta-card__book-title")
-            texts = sec_soup.find_all("div", {"id": "lenta-card__text-review-escaped"})
+            texts = sec_soup.find_all("div", {"id": "lenta-card__text-review-full"})
             authors = sec_soup.find_all(class_="lenta-card__author")
+            new_quotes = []
             for quote in quotes:
                 new_quotes.append(str((quote.text.replace(" ", "")).replace("\n", "")))
-            for name in names:
-                new_names.append((str(name.text)))
-            for text in texts:
-                new_texts.append((str(text.text)))
-            for author in authors:
-                new_authors.append(str(author.text))
             # заходим на в каждый отзыв и берем оттуда все нужные данные
             # print(str(len(new_quotes)) + " " + str(len(names))+" "+str(len(texts))+" "+str(len(authors)))
             # количество найденных данных Используется не количество найденных ссылок а мин значение из найденых
             # элементов, так ка бывает что отзыв без оценки или автора..
             time.sleep(random.randint(30, 45))
-            y = min(len(new_authors), len(new_names), len(new_texts))
+            y = min(len(authors), len(names), len(texts), new_quotes)
             if i > y: continue
-            print(i, y, len(new_authors), len(new_names), len(new_texts))
-            x = float(new_quotes[i])
+            print(i, y, len(authors), len(names), len(texts))
+            x = float(quotes[i])
             # Сортируем отзывы по оценкам и записываем в txt файл, W+ запись и чтение(модификатор)
             if 4.5 <= x <= 5:
                 quotes_5 = quotes_5 + 1
                 if quotes_5 >= 1000: continue
                 namefile = str(quotes_5).zfill(4)
                 with open("dataset/" + "5" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
-                    file.write(str(x) + '\n' + new_names[i] + '\n' + new_authors[i] + '\n' + texts[i])
+                    file.write(str(x) + '\n' + names + '\n' + authors + '\n' + texts)
             elif 3.5 <= x < 4.5:
                 quotes_4 = quotes_4 + 1
                 if quotes_4 >= 1000: continue
                 namefile = str(quotes_4).zfill(4)
                 with open("dataset/" + "4" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
-                    file.write(str(x) + '\n' + new_names[i] + '\n' + new_authors[i] + '\n' + texts[i])
+                    file.write(str(x) + '\n' + names + '\n' + authors + '\n' + texts)
             elif 2.5 <= x < 3.5:
                 quotes_3 = quotes_3 + 1
                 if quotes_3 >= 1000: continue
                 namefile = str(quotes_3).zfill(4)
                 with open("dataset/" + "3" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
-                    file.write(str(x) + '\n' + new_names[i] + '\n' + new_authors[i] + '\n' + new_texts[i])
+                    file.write(str(x) + '\n' + names + '\n' + authors + '\n' + texts)
             elif 1.5 <= x < 2.5:
                 quotes_2 = quotes_2 + 1
                 if quotes_2 >= 1000: continue
                 namefile = str(quotes_2).zfill(4)
                 with open("dataset/" + "2" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
-                    file.write(str(x) + '\n' + new_names[i] + '\n' + new_authors[i] + '\n' + new_texts[i])
+                    file.write(str(x) + '\n' + names + '\n' + authors + '\n' + texts)
             else:
                 quotes_1 = quotes_1 + 1
                 if quotes_1 >= 1000: continue
                 namefile = str(quotes_1).zfill(4)
                 with open("dataset/" + "1" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
-                    file.write(str(x) + '\n' + new_names[i] + '\n' + new_authors[i] + '\n' + new_texts[i])
+                    file.write(str(x) + '\n' + names + '\n' + authors + '\n' + texts)
             number_elem = number_elem + 1
             # прибавляем счетчик
             # time.sleep(random.randint(30, 45))

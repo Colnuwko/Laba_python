@@ -23,17 +23,18 @@ def main():
         # Создаем папку датасет если ее нет, переходим в нее, и также создаем 5 папок если их еще нет
     url = 'https://www.livelib.ru/reviews'
     second_url = 'https://www.livelib.ru'
-    number_elem = 0
-    number_page = 1
-    quotes_1 = 0
-    quotes_2 = 0
-    quotes_3 = 0
-    quotes_4 = 0
-    quotes_5 = 0  # Задаем переменные для счета, а также инициализируем нужные ссылки
-    while number_elem < 50:
-        response = requests.get(url, headers)  # Собственно записываем в переменную нтмл текст.после используем его
+    number_elem = 348
+    number_page = 6
+    quotes_1 = 1
+    quotes_2 = 9
+    quotes_3 = 49
+    quotes_4 = 129
+    quotes_5 = 156  # Задаем переменные для счета, а также инициализируем нужные ссылки не нули потому что после бана
+    # нужно начинать не с начала
+    while number_elem < 5000:
+        response = requests.get(url)  # Собственно записываем в переменную нтмл текст.после используем его
         response.encoding = "utf-8"
-        print(response.text)
+        # print(response.text)
         soup = BeautifulSoup(response.text, 'lxml')
         items = soup.find_all(class_="footer-card__link", href=True)
         href = []
@@ -57,7 +58,9 @@ def main():
             # print(str(len(new_quotes)) + " " + str(len(names))+" "+str(len(texts))+" "+str(len(authors)))
             # количество найденных данных Используется не количество найденных ссылок а мин значение из найденых
             # элементов, так ка бывает что отзыв без оценки или автора..
-            y = min(len(authors), len(names), len(texts))
+            y = min(len(authors), len(names), len(texts), len(new_quotes))
+            if y == 0:
+                continue
             print(i, y, len(authors), len(names), len(texts), new_quotes)
             x = float(new_quotes[0])
             # Сортируем отзывы по оценкам и записываем в txt файл, W+ запись и чтение(модификатор)
@@ -69,6 +72,7 @@ def main():
                 with open("dataset/" + "5" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
+                number_elem = number_elem + 1
             elif 3.5 <= x < 4.5:
                 quotes_4 = quotes_4 + 1
                 if quotes_4 >= 1000:
@@ -77,6 +81,7 @@ def main():
                 with open("dataset/" + "4" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
+                number_elem = number_elem + 1
             elif 2.5 <= x < 3.5:
                 quotes_3 = quotes_3 + 1
                 if quotes_3 >= 1000:
@@ -85,6 +90,7 @@ def main():
                 with open("dataset/" + "3" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
+                number_elem = number_elem + 1
             elif 1.5 <= x < 2.5:
                 quotes_2 = quotes_2 + 1
                 if quotes_2 >= 1000:
@@ -93,6 +99,7 @@ def main():
                 with open("dataset/" + "2" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
+                number_elem = number_elem + 1
             else:
                 quotes_1 = quotes_1 + 1
                 if quotes_1 >= 1000:
@@ -101,7 +108,7 @@ def main():
                 with open("dataset/" + "1" + '/' + namefile + '.txt', 'w+', encoding="utf-8") as file:
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
-            number_elem = number_elem + 1
+                number_elem = number_elem + 1
             time.sleep(random.randint(35, 40))
             # прибавляем счетчик
             # #режим ждуна шоб не забанило

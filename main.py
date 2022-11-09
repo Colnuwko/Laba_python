@@ -23,16 +23,17 @@ def main():
         # Создаем папку датасет если ее нет, переходим в нее, и также создаем 5 папок если их еще нет
     url = 'https://www.livelib.ru/reviews'
     second_url = 'https://www.livelib.ru'
-    number_elem = 348
-    number_page = 6
-    quotes_1 = 1
-    quotes_2 = 9
-    quotes_3 = 49
-    quotes_4 = 129
-    quotes_5 = 156  # Задаем переменные для счета, а также инициализируем нужные ссылки не нули потому что после бана
+    number_elem = 2994
+    
+    number_page = 100
+    quotes_1 = 63
+    quotes_2 = 89
+    quotes_3 = 261
+    quotes_4 = 684
+    quotes_5 = 998  # Задаем переменные для счета, а также инициализируем нужные ссылки не нули потому что после бана
     # нужно начинать не с начала
     while number_elem < 5000:
-        response = requests.get(url)  # Собственно записываем в переменную нтмл текст.после используем его
+        response = requests.get(url, headers)  # Собственно записываем в переменную нтмл текст.после используем его
         response.encoding = "utf-8"
         # print(response.text)
         soup = BeautifulSoup(response.text, 'lxml')
@@ -109,7 +110,7 @@ def main():
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
                 number_elem = number_elem + 1
-            time.sleep(random.randint(35, 40))
+            time.sleep(random.randint(55, 60))
             # прибавляем счетчик
             # #режим ждуна шоб не забанило
         number_page = number_page + 1  # Инкрементируем счетчик страниц и перелистываем страничку, после все заново

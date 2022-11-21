@@ -2,7 +2,6 @@ import csv
 import os
 from tqdm import trange
 file_name = "test_csv.csv"
-shop_list = {"яблоки": [2, 100], "манго": [3, 250], "морковь": [1, 35]}
 
 # Запись в файл
 os.chdir("Dataset")

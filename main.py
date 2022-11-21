@@ -23,13 +23,13 @@ def main():
         # Создаем папку датасет если ее нет, переходим в нее, и также создаем 5 папок если их еще нет
     url = 'https://www.livelib.ru/reviews'
     second_url = 'https://www.livelib.ru'
-    number_elem = 2994
+    number_elem = 3300
     
-    number_page = 100
-    quotes_1 = 63
-    quotes_2 = 89
-    quotes_3 = 261
-    quotes_4 = 684
+    number_page = 125
+    quotes_1 = 76
+    quotes_2 = 108
+    quotes_3 = 314
+    quotes_4 = 824
     quotes_5 = 998  # Задаем переменные для счета, а также инициализируем нужные ссылки не нули потому что после бана
     # нужно начинать не с начала
     while number_elem < 5000:
@@ -43,7 +43,7 @@ def main():
             href.append(item.get('href'))
         print(href)
         # Заходим на страницу и парсим все ссылки на полные отзывы.
-        time.sleep(random.randint(10, 20))
+        time.sleep(random.randint(10, 15))
         for i in range(len(href)):
             sec_response = requests.get(second_url + href[i])
             sec_response.encoding = "utf-8"
@@ -110,7 +110,7 @@ def main():
                     file.write('Оценка: ' + str(x) + '\n' + 'Название: ' + names[0].text + '\n' + 'Автор книги: ' +
                                authors[0].text + '\n' + 'Рецензия:' + '\n' + texts[0].text)
                 number_elem = number_elem + 1
-            time.sleep(random.randint(55, 60))
+            #time.sleep(random.randint(55, 60))
             # прибавляем счетчик
             # #режим ждуна шоб не забанило
         number_page = number_page + 1  # Инкрементируем счетчик страниц и перелистываем страничку, после все заново

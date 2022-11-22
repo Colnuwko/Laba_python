@@ -1,4 +1,14 @@
 import csv
+import os
+from typing import Optional
+
+
+def iterator(name: str) -> Optional[str]:
+    """create a csv"""
+    names = os.listdir(os.path.join("Dataset", name))
+    for i in range(len(names)):
+        yield os.path.join("Dataset", name, names[i])  # делаем итератор
+    return None
 
 
 class Iterator:

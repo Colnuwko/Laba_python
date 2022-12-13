@@ -15,9 +15,9 @@ def first_script(path_dir: str)->str:
         writer = csv.writer(w_file, dialect='excel', delimiter=",", lineterminator="\r")
         writer.writerow(("absolut path", "relativ path", "quote"))  # Заголовки столбца
         for star in trange(1, 6):
-            directory = os.path.join(out_directory, "dataset", str(star))
+            directory = os.path.join(out_directory, "Dataset", str(star))
             for dirs, folder, files in os.walk(directory):
                 for element in files:
-                    writer.writerow([str(dirs) + "/" + element, "dataset" + '/' + str(star) + "/" + element, star])
+                    writer.writerow([path_dir + "/" + element, "Dataset" + '/' + str(star) + "/" + element, star])
 
     print("adf")

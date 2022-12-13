@@ -19,7 +19,7 @@ class Iterator:
         self.way_to_file = way_to_csv_file
         self.counter = 0
 
-        file = open(self.way_to_file, "r", encoding="utf-8")
+        file = open(self.way_to_file, "r")
         reader = csv.reader(file, delimiter="\t")
         for row in reader:
             if str(row)[-3] == self.name_class:
@@ -35,5 +35,5 @@ class Iterator:
         else:
             return ""
 
-#for i in iterator("5"):
- ##   print(i)
+for i in iterator("5"):
+    print(i)

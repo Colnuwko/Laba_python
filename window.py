@@ -8,6 +8,7 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QMessageBox,QFileDialog
 
 import first_script
+import script_three
 import script_two
 
 
@@ -18,6 +19,9 @@ class Window(QMainWindow):
     def button_second_click(self):
         dirlist = QFileDialog.getExistingDirectory(self, "Выбрать папку", ".")
         script_two.script_two(dirlist)
+    def button_three_click(self):
+        dirlist = QFileDialog.getExistingDirectory(self, "Выбрать папку", ".")
+        script_three.script_three(dirlist)
     def __init__(self)->None:
         super(Window, self).__init__()
         self.button_first= QtWidgets.QPushButton(self)#создаем кнопочки
@@ -42,6 +46,7 @@ class Window(QMainWindow):
 
         self.button_first.clicked.connect(self.button_first_click)
         self.button_second.clicked.connect(self.button_second_click)
+        self.button_three.clicked.connect(self.button_three_click)
 def application() -> None:
     """"Start aplication mainwindow"""
     app = QApplication(sys.argv)

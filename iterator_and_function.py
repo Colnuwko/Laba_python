@@ -1,5 +1,6 @@
 import csv
 import os
+import re
 from typing import Optional
 
 
@@ -18,7 +19,7 @@ class Iterator:
         self.way_to_file = way_to_csv_file
         self.counter = 0
 
-        file = open(self.way_to_file, "r")
+        file = open(self.way_to_file, "r", encoding="utf-8")
         reader = csv.reader(file, delimiter="\t")
         for row in reader:
             if str(row)[-3] == self.name_class:
@@ -28,12 +29,11 @@ class Iterator:
         return self
 
     def __next__(self):
-        if self.counter < self.limit:
+        if self.counter < len(self.list):
             self.counter += 1
-            return self.counter
+            return self.list[self.counter - 1]
         else:
-            return "none"
+            return ""
 
-
-for i in iterator("5"):
-    print(i)
+#for i in iterator("5"):
+ ##   print(i)

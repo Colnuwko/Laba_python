@@ -1,12 +1,12 @@
 import os
-import re
+
 import sys
 
 from PyQt5 import QtCore
 
-from PyQt5.QtGui import QFont, QPixmap, QRegExpValidator
+from PyQt5.QtGui import QFont
 from PyQt5 import QtWidgets
-from PyQt5.QtWidgets import QApplication, QMainWindow, QLabel, QLineEdit, QMessageBox, QFileDialog
+from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 
 import first_script
 import script_three
@@ -28,7 +28,7 @@ class Window(QMainWindow):
         script_three.script_three(dirlist)
 
     def one_star_click(self):
-        #self.one_star.hide()
+        # self.one_star.hide()
         self.two_star.hide()
         self.three_star.hide()
         self.four_star.hide()
@@ -38,17 +38,16 @@ class Window(QMainWindow):
         self.back.show()
         self.main_text.setText("asds")
         elem = str(next(self.iterat_1))
-        if elem == "['absolut path, relativ path, quote']":
+        if elem == "['absolut path,relativ path,quote']":
             elem = str(next(self.iterat_1))
         self.one_star.setText("Следующий отзыв")
         self.one_star.adjustSize()
         self.one_star.move(750, 50)
         self.read_directory(elem)
 
-
     def two_star_click(self):
         self.one_star.hide()
-        #self.two_star.hide()
+        # self.two_star.hide()
         self.three_star.hide()
         self.four_star.hide()
         self.five_star.hide()
@@ -64,11 +63,10 @@ class Window(QMainWindow):
         self.two_star.move(750, 50)
         self.read_directory(elem)
 
-
     def three_star_click(self):
         self.one_star.hide()
         self.two_star.hide()
-        #self.three_star.hide()
+        # self.three_star.hide()
         self.four_star.hide()
         self.five_star.hide()
         self.start_iterator.hide()
@@ -83,12 +81,11 @@ class Window(QMainWindow):
         self.three_star.move(750, 50)
         self.read_directory(elem)
 
-
     def four_star_click(self):
         self.one_star.hide()
         self.two_star.hide()
         self.three_star.hide()
-        #self.four_star.hide()
+        # self.four_star.hide()
         self.five_star.hide()
         self.main_text.show()
         self.back.show()
@@ -103,13 +100,13 @@ class Window(QMainWindow):
         self.read_directory(elem)
 
     def five_star_click(self):
-        #self.next_response.show()
+        # self.next_response.show()
         self.back.show()
         self.one_star.hide()
         self.two_star.hide()
         self.three_star.hide()
         self.four_star.hide()
-        #self.five_star.hide()
+        # self.five_star.hide()
         self.start_iterator.hide()
         self.main_text.show()
         self.main_text.setText("asds")
@@ -121,11 +118,8 @@ class Window(QMainWindow):
         self.five_star.move(750, 50)
         self.read_directory(elem)
 
-
-
-    #def next_response_click(self):
-      #  print("f")
-
+    # def next_response_click(self):
+    #  print("f")
 
     def back_click(self):
         print("fg")
@@ -140,12 +134,11 @@ class Window(QMainWindow):
         self.five_star.hide()
         self.main_text.hide()
         self.back.hide()
-        #self.next_response.hide()
-
+        # self.next_response.hide()
 
     def read_directory(self, elem: str) -> None:
         """Read directory file and print text on labal opinion"""
-
+        os.chdir(os.path.dirname(__file__))
         self.main_text.clear()
         directory = elem.split(",")
         print(directory[1])
@@ -225,6 +218,7 @@ class Window(QMainWindow):
         self.five_star.hide()
         #  self.next_response.hide()
         self.back.hide()
+
     def __init__(self) -> None:
         super(Window, self).__init__()
         if not os.path.isfile("C:\\Users\\Солнышко\\PycharmProjects\\Laba_python\\Dataset\\test_csv.csv"):
@@ -239,7 +233,7 @@ class Window(QMainWindow):
         self.three_star = QtWidgets.QPushButton(self)
         self.four_star = QtWidgets.QPushButton(self)
         self.five_star = QtWidgets.QPushButton(self)
-       # self.next_response = QtWidgets.QPushButton(self)
+        # self.next_response = QtWidgets.QPushButton(self)
         self.back = QtWidgets.QPushButton(self)
 
         self.main_text = QtWidgets.QLabel(self)
@@ -258,7 +252,6 @@ class Window(QMainWindow):
 
         self.button_defult()
 
-
         self.button_first.clicked.connect(self.button_first_click)
         self.button_second.clicked.connect(self.button_second_click)
         self.button_three.clicked.connect(self.button_three_click)
@@ -268,14 +261,14 @@ class Window(QMainWindow):
         self.three_star.clicked.connect(self.three_star_click)
         self.four_star.clicked.connect(self.four_star_click)
         self.five_star.clicked.connect(self.five_star_click)
-        #self.next_response.clicked.connect(self.next_response_click)
+        # self.next_response.clicked.connect(self.next_response_click)
         self.back.clicked.connect(self.back_click)
 
-        self.iterat_1 = iterator_and_function.Iterator("test_csv.csv", 1)
-        self.iterat_2 = iterator_and_function.Iterator("test_csv.csv", 2)
-        self.iterat_3 = iterator_and_function.Iterator("test_csv.csv", 3)
-        self.iterat_4 = iterator_and_function.Iterator("test_csv.csv", 4)
-        self.iterat_5 = iterator_and_function.Iterator("test_csv.csv", 5)
+        self.iterat_1 = iterator_and_function.Iterator("C:\\Users\\Солнышко\\PycharmProjects\\Laba_python\\Dataset\\test_csv.csv", 1)
+        self.iterat_2 = iterator_and_function.Iterator("C:\\Users\\Солнышко\\PycharmProjects\\Laba_python\\Dataset\\test_csv.csv", 2)
+        self.iterat_3 = iterator_and_function.Iterator("C:\\Users\\Солнышко\\PycharmProjects\\Laba_python\\Dataset\\test_csv.csv", 3)
+        self.iterat_4 = iterator_and_function.Iterator("C:\\Users\\Солнышко\\PycharmProjects\\Laba_python\\Dataset\\test_csv.csv", 4)
+        self.iterat_5 = iterator_and_function.Iterator("C:\\Users\\Солнышко\\PycharmProjects\\Laba_python\\Dataset\\test_csv.csv", 5)
 
 
 def application() -> None:

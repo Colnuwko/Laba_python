@@ -1,6 +1,7 @@
 import csv
 import os
 import re
+from os.path import relpath
 from typing import Optional
 
 
@@ -18,7 +19,6 @@ class Iterator:
         self.list = []
         self.way_to_file = way_to_csv_file
         self.counter = 0
-
         file = open(self.way_to_file, "r")
         reader = csv.reader(file, delimiter="\t")
         for row in reader:

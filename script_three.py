@@ -11,8 +11,10 @@ def script_three(path_dir: str) -> str:
     file_name = "test_csv_three.csv"
     names = [i for i in range(10000)]
     out_directory = os.path.dirname(__file__)
-    if not os.path.isdir("dataset_three"):  os.makedirs("dataset_three")
-    if not os.path.isdir("dataset_two"):    script_two.script_two(path_dir)
+    if not os.path.isdir("dataset_three"):
+        os.makedirs("dataset_three")
+    if not os.path.isdir("dataset_two"):
+        script_two.script_two(path_dir)
     with open(file_name, mode="w") as w_file:
         writer = csv.writer(w_file, dialect='excel', delimiter=",", lineterminator="\r")
         writer.writerow(("absolut path", "relativ path", "quote"))  # Заголовки столбца
